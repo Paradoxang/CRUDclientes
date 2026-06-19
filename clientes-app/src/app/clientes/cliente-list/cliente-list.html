@@ -1,0 +1,89 @@
+<div class="contenedor">
+  <div class="cabecera">
+    <h1>Clientes</h1>
+    <a routerLink="/clientes/nuevo" class="boton-nuevo">+ Nuevo cliente</a>
+  </div>
+
+  <!-- Bonus: barra de búsqueda y filtro -->
+  <div class="filtros">
+    <input
+      type="text"
+      [(ngModel)]="buscar"
+      (keyup.enter)="aplicarFiltros()"
+      placeholder="Buscar por nombre, apellido o correo..." />
+
+    <select [(ngModel)]="filtroActivo" (change)="aplicarFiltros()">
+      <option value="">Todos</option>
+      <option value="true">Activos</option>
+      <option value="false">Inactivos</option>
+    </select>
+
+    <button type="button" (click)="aplicarFiltros()">Buscar</button>
+  </div>
+
+  @if (cargando()) {
+    <p>Cargando...</p>
+  } @else if (error()) {
+    <p class="error">{{ error() }}</p>
+  } @else if (clientes().length === 0) {
+    <p>No se encontraron clientes.</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (cliente of clientes(); track cliente.id) {
+          <tr>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.apellido }}</td>
+            <td>{{ cliente.correo }}</td>
+            <td>{{ cliente.telefono }}</td>
+            <td>{{ cliente.activo ? 'Activo' : 'Inactivo' }}</td>
+            <td class="acciones-tabla">
+              <a [routerLink]="['/clientes', cliente.id]">Ver</a>
+              <a [routerLink]="['/clientes/editar', cliente.id]">Editar</a>
+              <button type="button" class="btn-eliminar" (click)="pedirConfirmacion(cliente)">Eliminar</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <!-- Bonus: paginador -->
+    <div class="paginador">
+      <button type="button" (click)="paginaAnterior()" [disabled]="pagina() === 1">
+        ← Anterior
+      </button>
+      <span>Página {{ pagina() }} de {{ totalPaginas() }}</span>
+      <button type="button" (click)="paginaSiguiente()" [disabled]="pagina() >= totalPaginas()">
+        Siguiente →
+      </button>
+    </div>
+  }
+
+  <!-- Modal de confirmación antes de eliminar -->
+  @if (clienteAEliminar(); as cliente) {
+    <div class="modal-fondo">
+      <div class="modal">
+        <h2>Confirmar eliminación</h2>
+        <p>¿Seguro que deseas eliminar a <strong>{{ cliente.nombre }} {{ cliente.apellido }}</strong>?</p>
+        <div class="modal-acciones">
+          <button type="button" class="btn-cancelar" (click)="cancelarEliminar()" [disabled]="eliminando()">
+            Cancelar
+          </button>
+          <button type="button" class="btn-eliminar" (click)="confirmarEliminar()" [disabled]="eliminando()">
+            {{ eliminando() ? 'Eliminando...' : 'Sí, eliminar' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

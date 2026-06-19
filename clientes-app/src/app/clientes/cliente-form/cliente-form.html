@@ -1,0 +1,67 @@
+<div class="contenedor">
+  <h1>{{ esEdicion ? 'Editar cliente' : 'Nuevo cliente' }}</h1>
+
+  @if (errorServidor()) {
+    <p class="error">{{ errorServidor() }}</p>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <label>
+      Nombre
+      <input type="text" formControlName="nombre" />
+    </label>
+    @if (form.controls.nombre.touched && form.controls.nombre.invalid) {
+      <small class="error">El nombre es obligatorio.</small>
+    }
+
+    <label>
+      Apellido
+      <input type="text" formControlName="apellido" />
+    </label>
+    @if (form.controls.apellido.touched && form.controls.apellido.invalid) {
+      <small class="error">El apellido es obligatorio.</small>
+    }
+
+    <label>
+      Teléfono
+      <input type="text" formControlName="telefono" />
+    </label>
+    @if (form.controls.telefono.touched && form.controls.telefono.invalid) {
+      <small class="error">El teléfono es obligatorio.</small>
+    }
+
+    <label>
+      Correo
+      <input type="email" formControlName="correo" />
+    </label>
+    @if (form.controls.correo.touched && form.controls.correo.invalid) {
+      <small class="error">
+        @if (form.controls.correo.errors?.['required']) {
+          El correo es obligatorio.
+        } @else {
+          El correo no es válido.
+        }
+      </small>
+    }
+
+    <label>
+      Fecha de nacimiento
+      <input type="date" formControlName="fechaNacimiento" />
+    </label>
+    @if (form.controls.fechaNacimiento.touched && form.controls.fechaNacimiento.invalid) {
+      <small class="error">La fecha de nacimiento es obligatoria.</small>
+    }
+
+    <label class="checkbox">
+      <input type="checkbox" formControlName="activo" />
+      Activo
+    </label>
+
+    <div class="acciones">
+      <button type="submit" [disabled]="guardando()">
+        {{ guardando() ? 'Guardando...' : 'Guardar' }}
+      </button>
+      <a routerLink="/clientes" class="cancelar">Cancelar</a>
+    </div>
+  </form>
+</div>

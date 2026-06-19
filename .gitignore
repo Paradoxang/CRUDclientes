@@ -1,0 +1,15 @@
+## .NET / Visual Studio
+bin/
+obj/
+.vs/
+*.user
+
+## Angular / Node
+node_modules/
+.angular/
+dist/
+
+## Varios
+*.log
+.DS_Store
+Thumbs.db

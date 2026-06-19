@@ -1,0 +1,153 @@
+:root {
+  --color-primario: #2563eb;
+  --color-primario-hover: #1d4ed8;
+  --color-peligro: #dc2626;
+  --color-peligro-hover: #b91c1c;
+  --color-texto: #1e293b;
+  --color-borde: #e2e8f0;
+  --color-fondo: #f8fafc;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.5;
+}
+
+.contenedor {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+h1 { font-size: 1.6rem; margin: 0; }
+h2 { font-size: 1.2rem; margin-top: 0; }
+
+/* Cabecera del listado */
+.cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Barra de filtros */
+.filtros {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.filtros input[type="text"] { flex: 1; min-width: 220px; }
+
+/* Inputs y selects */
+input, select {
+  padding: 9px 12px;
+  border: 1px solid var(--color-borde);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: white;
+}
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--color-primario);
+}
+
+/* Botones */
+button, .boton-nuevo {
+  cursor: pointer;
+  padding: 9px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: var(--color-primario);
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.15s;
+}
+button:hover, .boton-nuevo:hover { background: var(--color-primario-hover); }
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btn-eliminar { background: var(--color-peligro); }
+.btn-eliminar:hover { background: var(--color-peligro-hover); }
+.btn-cancelar { background: #64748b; }
+.btn-cancelar:hover { background: #475569; }
+
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+th, td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-borde);
+}
+th { background: #f1f5f9; font-weight: 600; font-size: 0.9rem; }
+tbody tr:hover { background: #f8fafc; }
+
+.acciones-tabla { display: flex; gap: 10px; align-items: center; }
+.acciones-tabla a {
+  color: var(--color-primario);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.acciones-tabla a:hover { text-decoration: underline; }
+.acciones-tabla .btn-eliminar { padding: 5px 10px; font-size: 0.85rem; }
+
+/* Paginador */
+.paginador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+/* Formulario */
+form label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+form label input { display: block; width: 100%; margin-top: 4px; font-weight: normal; }
+form { max-width: 480px; }
+form .checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+form .checkbox input { width: auto; display: inline; margin: 0; }
+.acciones { display: flex; gap: 12px; align-items: center; margin-top: 24px; }
+.cancelar {
+  color: #64748b;
+  text-decoration: none;
+  padding: 9px 16px;
+}
+.cancelar:hover { text-decoration: underline; }
+
+/* Detalle */
+.detalle {
+  background: white;
+  padding: 20px 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+.detalle p { margin: 8px 0; }
+
+/* Mensajes de error */
+.error { color: var(--color-peligro); font-size: 0.9rem; }

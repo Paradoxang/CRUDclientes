@@ -1,0 +1,24 @@
+<div class="contenedor">
+  @if (cargando()) {
+    <p>Cargando...</p>
+  } @else if (error()) {
+    <p class="error">{{ error() }}</p>
+  } @else {
+    @if (cliente(); as c) {
+      <h1>Detalle del cliente</h1>
+      <div class="detalle">
+        <p><strong>Nombre:</strong> {{ c.nombre }}</p>
+        <p><strong>Apellido:</strong> {{ c.apellido }}</p>
+        <p><strong>Correo:</strong> {{ c.correo }}</p>
+        <p><strong>Teléfono:</strong> {{ c.telefono }}</p>
+        <p><strong>Fecha de nacimiento:</strong> {{ c.fechaNacimiento | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Estado:</strong> {{ c.activo ? 'Activo' : 'Inactivo' }}</p>
+        <p><strong>Fecha de creación:</strong> {{ c.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</p>
+      </div>
+      <div class="acciones">
+        <a [routerLink]="['/clientes/editar', c.id]">Editar</a>
+        <a routerLink="/clientes" class="cancelar">Volver</a>
+      </div>
+    }
+  }
+</div>
